@@ -1,10 +1,10 @@
-// dashboard.js - improved UX: keyboard navigation, active menu state, sidebar toggle, debounce resize
+// dashboard.js - improved UX: keyboard navigation, active menu state, sidebar toggle, debounce resize, theme handling
 document.addEventListener('DOMContentLoaded',()=>{
   const menuToggle = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar');
   const panels = Array.from(document.querySelectorAll('.panel'));
   const menuButtons = Array.from(document.querySelectorAll('.menu-item'));
-  const itemsPanel = document.getElementById('items');
+  const themeToggle = document.getElementById('theme-toggle');
 
   // Utility: show a panel and hide others
   function showPanel(id){
@@ -161,12 +161,28 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   window.addEventListener('resize', onResize);
 
+  // Theme handling
+  function applyTheme(name){
+    document.body.classList.toggle('theme-light', name === 'light');
+    themeToggle.setAttribute('aria-pressed', name === 'light' ? 'true' : 'false');
+    themeToggle.textContent = name === 'light' ? '☀️' : '🌙';
+    try{ localStorage.setItem('alura2:theme', name); }catch(e){}
+  }
+
+  themeToggle.addEventListener('click', ()=>{
+    const current = document.body.classList.contains('theme-light') ? 'light' : 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+  });
+
   // Restore settings
   try{
     const savedBg = localStorage.getItem('alura2:bg');
     if(savedBg){ bgColor.value = savedBg; window.setBgColor(savedBg); }
     const savedAnim = localStorage.getItem('alura2:anim');
     if(savedAnim === '1'){ toggleAnim.checked = true; window.toggleAnimation(true); }
+    const savedTheme = localStorage.getItem('alura2:theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+    applyTheme(savedTheme);
   }catch(e){}
 
   renderSavedItems();

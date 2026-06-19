@@ -1,12 +1,6 @@
-Atualização: melhorias de layout e UX
+## CHANGELOG — Tema e acessibilidade
 
-O commit adiciona as seguintes melhorias ao scaffold original:
-- Barra de salto (skip link) para acessibilidade.
-- Sidebar com transições suaves e suporte a abrir/fechar em telas pequenas.
-- Menu convertido para botões com roles ARIA e navegação por teclado (Enter/Space/Setas).
-- Painéis agora são mostrados/ocultados via atributo [hidden] para manter melhor comportamento com leitores de tela.
-- Persistência simples das preferências: cor de fundo, animação e itens (localStorage).
-- Debounce no redimensionamento da janela para evitar recalculos excessivos do canvas.
-- Foco gerenciável quando o menu é aberto, melhores estilos de foco.
+- Adicionado suporte a tema claro/escuro com toggle no header e persistência no localStorage.
+- Melhorias de contraste e tipografia para leitura (variáveis CSS para temas).
+- Pequenos ajustes visuais: ícone do tema, animação suave de cores, sombras mais suaves no tema claro.
 
-Esses ajustes melhoram a usabilidade para teclado e leitores de tela, além de dar uma experiência mais suave em mobile.
