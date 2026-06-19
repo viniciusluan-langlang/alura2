@@ -11,39 +11,41 @@
   <script src="js/dashboard.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">Alura2 — p5.js Dashboard</div>
-    <nav class="top-nav">
-      <button id="menu-toggle" aria-label="Alternar menu">☰</button>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+  <header class="site-header" role="banner">
+    <div class="brand"><a href="/" class="brand-link">Alura2 — p5.js Dashboard</a></div>
+    <nav class="top-nav" role="navigation" aria-label="Navegação principal">
+      <button id="menu-toggle" aria-label="Alternar menu" aria-expanded="false">☰</button>
     </nav>
   </header>
 
   <div class="layout">
-    <aside id="sidebar" class="sidebar">
+    <aside id="sidebar" class="sidebar" role="navigation" aria-label="Menu lateral">
       <h2>Menu</h2>
-      <ul class="menu-list">
-        <li class="menu-item" data-id="dashboard">Dashboard</li>
-        <li class="menu-item" data-id="controls">Controles</li>
-        <li class="menu-item" data-id="items">Itens</li>
-        <li class="menu-item" data-id="about">Sobre</li>
+      <ul class="menu-list" role="menu">
+        <li role="none"><button class="menu-item" role="menuitem" data-id="dashboard" aria-controls="dashboard" aria-current="true" tabindex="0">Dashboard</button></li>
+        <li role="none"><button class="menu-item" role="menuitem" data-id="controls" aria-controls="controls" aria-current="false" tabindex="0">Controles</button></li>
+        <li role="none"><button class="menu-item" role="menuitem" data-id="items" aria-controls="items" aria-current="false" tabindex="0">Itens</button></li>
+        <li role="none"><button class="menu-item" role="menuitem" data-id="about" aria-controls="about" aria-current="false" tabindex="0">Sobre</button></li>
       </ul>
     </aside>
 
-    <main id="main" class="main">
-      <section class="canvas-wrap">
-        <div id="canvas-container" class="canvas-container"></div>
+    <main id="main" class="main" role="main">
+      <section id="dashboard" class="panel canvas-wrap" tabindex="0">
+        <div id="canvas-container" class="canvas-container" aria-label="Canvas p5.js"></div>
       </section>
 
-      <section id="controls" class="panel">
+      <section id="controls" class="panel" tabindex="0">
         <h3>Controles</h3>
         <label class="control-row">
           <span>Animar</span>
-          <input id="toggle-anim" type="checkbox" />
+          <input id="toggle-anim" type="checkbox" aria-label="Ativar animação" />
         </label>
 
         <label class="control-row">
           <span>Cor de fundo</span>
-          <input id="bg-color" type="color" value="#0f172a" />
+          <input id="bg-color" type="color" value="#0f172a" aria-label="Selecionar cor de fundo" />
         </label>
 
         <div class="control-row">
@@ -51,23 +53,23 @@
         </div>
       </section>
 
-      <section id="items" class="panel">
+      <section id="items" class="panel" tabindex="0" aria-live="polite">
         <h3>Itens do Dashboard</h3>
         <form id="item-form">
-          <input id="item-text" placeholder="Novo item" />
+          <input id="item-text" placeholder="Novo item" aria-label="Texto do novo item" />
           <button type="submit">Adicionar</button>
         </form>
         <ul id="item-list" class="item-list"></ul>
       </section>
 
-      <section id="about" class="panel">
+      <section id="about" class="panel" tabindex="0">
         <h3>Sobre</h3>
         <p>Exemplo de site com p5.js, menu, layout e painel de controle otimizado para boa performance.</p>
       </section>
     </main>
   </div>
 
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div>© 2026 — Alura2</div>
     <div class="footer-links">Feito com p5.js</div>
   </footer>

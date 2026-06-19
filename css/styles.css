@@ -1,32 +1,48 @@
-/* styles.css - layout responsivo otimizado */
+/* styles.css - layout responsivo otimizado com melhorias de UX */
 :root{
   --bg:#0f172a;
   --panel:#0b1220;
   --accent:#2563eb;
+  --accent-2:#1e90ff;
+  --muted:rgba(255,255,255,.06);
   --text:#e6eef8;
+  --radius:8px;
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;padding:.5rem 1rem;background:var(--accent);color:white;border-radius:6px;z-index:1000}
 .site-header{height:56px;background:linear-gradient(90deg,#061025 0%, #0b1726 100%);display:flex;align-items:center;justify-content:space-between;padding:0 1rem;border-bottom:1px solid rgba(255,255,255,.03)}
 .brand{font-weight:600}
+.brand-link{color:var(--text);text-decoration:none}
 .top-nav #menu-toggle{background:none;border:0;color:var(--text);font-size:1.2rem;cursor:pointer}
 .layout{display:grid;grid-template-columns:250px 1fr;grid-template-rows:calc(100vh - 56px - 40px);gap:1rem;padding:1rem}
-.sidebar{background:var(--panel);padding:1rem;border-radius:8px;overflow:auto}
+/* Sidebar - now uses transform for smoother transitions */
+.sidebar{background:var(--panel);padding:1rem;border-radius:var(--radius);overflow:auto;transition:transform .25s ease,opacity .2s ease}
+.sidebar.closed{transform:translateX(-12px);opacity:0;pointer-events:none}
 .sidebar h2{margin:0 0 .5rem 0}
 .menu-list{list-style:none;padding:0;margin:0}
-.menu-item{padding:.6rem .8rem;border-radius:6px;cursor:pointer;color:var(--text);opacity:.95}
-.menu-item:hover{background:rgba(255,255,255,.03)}
+.menu-item{display:inline-flex;align-items:center;width:100%;padding:.6rem .8rem;border-radius:6px;cursor:pointer;color:var(--text);opacity:.95;background:transparent;border:0;font:inherit;text-align:left}
+.menu-item:hover, .menu-item:focus{background:var(--muted);outline:none}
+.menu-item[aria-current="true"]{background:linear-gradient(90deg,var(--accent)20%, transparent);box-shadow:inset 3px 0 0 var(--accent)}
 .main{display:grid;grid-template-columns:1fr 320px;gap:1rem}
-.canvas-wrap{background:linear-gradient(180deg rgba(255,255,255,0.02),transparent);padding:0;border-radius:8px;min-height:360px;display:flex;align-items:stretch}
+.canvas-wrap{background:linear-gradient(180deg rgba(255,255,255,0.02),transparent);padding:0;border-radius:var(--radius);min-height:360px;display:flex;align-items:stretch}
 .canvas-container{flex:1;position:relative}
-.panel{background:var(--panel);padding:1rem;border-radius:8px;min-height:120px;color:var(--text)}
+.panel{background:var(--panel);padding:1rem;border-radius:var(--radius);min-height:120px;color:var(--text);transition:opacity .18s ease,transform .18s ease}
+.panel[hidden]{opacity:0;transform:translateY(6px);pointer-events:none;height:0;padding:0;margin:0;border:0}
 .control-row{display:flex;align-items:center;justify-content:space-between;margin:.5rem 0}
 #item-list{list-style:none;padding:0;margin:0}
 #item-list li{display:flex;justify-content:space-between;padding:.4rem .6rem;border-radius:6px;margin:.25rem 0;background:rgba(255,255,255,.02)}
 .site-footer{height:40px;background:rgba(255,255,255,.02);display:flex;align-items:center;justify-content:space-between;padding:0 1rem;border-top:1px solid rgba(255,255,255,.02)}
+button{cursor:pointer}
+input,button{font:inherit}
+/* Focus styles for keyboard users */
+:focus{outline:2px solid var(--accent);outline-offset:2px}
+.menu-item:focus{outline:2px solid rgba(37,99,235,.35)}
+/* small screens */
 @media (max-width:900px){
   .layout{grid-template-columns:1fr;grid-auto-rows:auto}
   .main{grid-template-columns:1fr;}
-  .sidebar{display:none}
-  #menu-toggle{display:inline-block}
+  .sidebar{position:absolute;z-index:80;left:1rem;top:64px;width:calc(100% - 2rem);max-width:320px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+  .sidebar.closed{transform:translateY(-8px);opacity:0;pointer-events:none}
 }
